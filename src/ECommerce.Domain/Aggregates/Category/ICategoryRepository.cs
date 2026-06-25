@@ -2,5 +2,5 @@
 
 public interface ICategoryRepository
 {
-    public Task AddCategoryAsync(Category category);
+    public Task AddCategoryAsync(Product.Product category);
 }

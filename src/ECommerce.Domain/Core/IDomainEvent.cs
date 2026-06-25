@@ -1,6 +1,8 @@
-﻿namespace ECommerce.Domain.Core;
+﻿using MediatR;
 
-public interface IDomainEvent
+namespace ECommerce.Domain.Core;
+
+public interface IDomainEvent:INotification
 {
     DateTime OccurredOn { get; }
 }

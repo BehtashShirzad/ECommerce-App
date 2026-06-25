@@ -9,9 +9,9 @@ public class CategoryController(ISender sender) : Controller
 {
     private readonly ISender _sender = sender;
     [HttpPost]
-    public async Task<ActionResult> AddCategoryAsync([FromBody]CreateCategoryDto dto )
+    public async Task<ActionResult> AddCategoryAsync( )
     {
-          await _sender.Send(dto);
+          
         return Ok( );
     }
 }

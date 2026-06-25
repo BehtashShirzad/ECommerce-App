@@ -33,7 +33,8 @@ public class Product:AggregateRoot<ProductId>
         Guard.Against.NullOrEmpty(name,ProductErrors.InvalidProductName);
          
         Guard.Against.InvalidNumerRange(price,MinimumPrice,MaximumPrice,ProductErrors.InvalidProductPrice);
-        var product = new Product(categoryId,name, price,description, slug, imageUrl){Id =new ProductId(IdGenerator.New())};
+        var product = new Product(categoryId,name, price,description, slug, imageUrl)
+            {Id =new ProductId(IdGenerator.New())};
         
         return  product;
     }

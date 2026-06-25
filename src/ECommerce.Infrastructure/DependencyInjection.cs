@@ -30,8 +30,7 @@ public static class  DependencyInjection
         
             
         serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
-        serviceCollection.AddScoped<IDomainEventBus, DomainEventBus>();
-        serviceCollection.AddScoped<IDomainEventDispatcher, MediatrDomainEventDispatcher>();
+         
         serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
     }
 }

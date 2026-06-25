@@ -4,14 +4,15 @@ using ECommerce.Domain.Aggregates.Customer;
 using ECommerce.Domain.Aggregates.Order;
 using ECommerce.Domain.Aggregates.Product;
 using ECommerce.Domain.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Infrastructure.Persistence;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICurrentUser currentUser,IDomainEventBus bus) : DbContext(opt)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICurrentUser currentUser,IPublisher bus) : DbContext(opt)
 {
     readonly ICurrentUser  _currentUser=currentUser;
-    readonly IDomainEventBus  _domainEventBus=bus;
+    readonly IPublisher  _domainEventBus=bus;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {   
         base.OnModelCreating(modelBuilder);
@@ -49,7 +50,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICu
 
         foreach (var domainEvent in domainEvents)
         {
-            await _domainEventBus.PublishAsync(domainEvent, cancellationToken);
+            await _domainEventBus.Publish(domainEvent, cancellationToken);
         }
 
         foreach (var entry in ChangeTracker.Entries<IAggregateRoot>())
