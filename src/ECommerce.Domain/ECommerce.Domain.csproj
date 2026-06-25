@@ -12,5 +12,8 @@
 <ItemGroup>
   <ProjectReference Include="..\ECommerce.Shared\ECommerce.Shared.csproj" />
 </ItemGroup>
+<ItemGroup>
+  <Folder Include="Aggregates\Category\ValueObjects\" />
+</ItemGroup>
  
 </Project>

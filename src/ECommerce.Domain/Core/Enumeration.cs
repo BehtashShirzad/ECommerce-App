@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Domain.Core;
+﻿using System.Reflection;
+
+namespace ECommerce.Domain.Core;
 
 public abstract class Enumeration : IComparable
 {
@@ -31,4 +33,31 @@ public abstract class Enumeration : IComparable
     {
         return Id.CompareTo(((Enumeration)other!).Id);
     }
+    
+    public static IEnumerable<T> GetAll<T>()
+        where T : Enumeration
+    {
+        return typeof(T)
+            .GetFields(BindingFlags.Public |
+                       BindingFlags.Static |
+                       BindingFlags.DeclaredOnly)
+            .Select(f => f.GetValue(null))
+            .Cast<T>();
+    }
+
+    public static T FromValue<T>(int value)
+        where T : Enumeration
+    {
+        return GetAll<T>()
+            .Single(x => x.Id == value);
+    }
+
+    public static T FromName<T>(string name)
+        where T : Enumeration
+    {
+        return GetAll<T>()
+            .Single(x => x.Name == name);
+    }
+
+    
 }

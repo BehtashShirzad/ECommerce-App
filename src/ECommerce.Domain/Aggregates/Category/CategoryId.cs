@@ -3,11 +3,11 @@ using ECommerce.Domain.Core;
 using ECommerce.Domain.Exceptions;
 using ECommerce.Domain.GuardExtensions;
 
-namespace ECommerce.Domain.Aggregates.Order.ValueObjects;
+namespace ECommerce.Domain.Aggregates.Category;
 
-public class OrderId:ValueObject
+public class CategoryId:ValueObject
 {
-    public OrderId(Guid value)
+    public CategoryId(Guid value)
     {
         Guard.Against.EmptyGuid(value,GeneralErrors.InvalidId);
         Value = value;

@@ -12,7 +12,7 @@ public  class ProductId:ValueObject
       Guard.Against.EmptyGuid(value,GeneralErrors.InvalidId);
       Value = value;
    }
-   private Guid Value { get; }  
+   public Guid Value { get; }  
    protected override IEnumerable<object?> GetEqualityComponents()
    {
       yield return Value;
