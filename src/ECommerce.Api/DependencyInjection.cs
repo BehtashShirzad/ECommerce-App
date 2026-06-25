@@ -11,6 +11,7 @@ public static class DependencyInjection
     {
         #region Api Services
 
+        serviceCollection.AddHttpContextAccessor();
         serviceCollection.AddSwagger();
         // serviceCollection.AddAuthentication();
         // serviceCollection.AddAuthorization();

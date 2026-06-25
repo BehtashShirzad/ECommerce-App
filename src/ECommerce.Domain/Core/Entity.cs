@@ -1,10 +1,14 @@
 ﻿namespace ECommerce.Domain.Core;
-
-public abstract class Entity<TId>
+public abstract class BaseEntity
+{
+}
+public abstract class Entity<TId>:BaseEntity,IAuditableEntity
 {
     public TId Id { get; protected set; } = default!;
-    public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
-
+    public DateTime CreatedAt { get;   set; } = DateTime.UtcNow;
+    public Guid? ModifierId { get ;set; }
+    public DateTime? ModifiedAt { get ;set; }
+    public Guid CreatorId { get ;set; }
     public override bool Equals(object? obj)
     {
         if (obj is not Entity<TId> other)

@@ -1,5 +1,9 @@
-﻿using ECommerce.Domain.Aggregates;
+﻿using ECommerce.Application.Abstractions.Contracts;
+using ECommerce.Domain.Aggregates;
+using ECommerce.Domain.Aggregates.Category;
 using ECommerce.Infrastructure.Persistence;
+using ECommerce.Infrastructure.Repositories;
+using ECommerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +29,9 @@ public static class  DependencyInjection
             .AddEntityFrameworkStores<AppIdentityDbContext>();
         
             
-        
-        
+        serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
+        serviceCollection.AddScoped<IDomainEventBus, DomainEventBus>();
+        serviceCollection.AddScoped<IDomainEventDispatcher, MediatrDomainEventDispatcher>();
+        serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
     }
 }
