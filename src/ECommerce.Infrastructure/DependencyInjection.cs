@@ -15,6 +15,7 @@ public static class  DependencyInjection
     public static void AddInfrastructureServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
 
+       
         serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
         serviceCollection.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
         
@@ -32,5 +33,7 @@ public static class  DependencyInjection
         serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
          
         serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
+        serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+        serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
     }
 }
