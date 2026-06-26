@@ -12,32 +12,6 @@ A layered .NET 10 e‑commerce backend demonstrating a clean architecture approa
   - Mapster for object mapping
 
 ## Quick architecture overview
-Top-level layout:
-```
-src/
-  ECommerce.Api/           ASP.NET Core Web API (Program.cs, controllers, appsettings)
-    ApiConfiguration/      API configuration, middleware setup
-    Controllers/           HTTP controllers / endpoints
-  ECommerce.Application/   Application layer: use-cases, pipelines, abstractions
-    Abstractions/
-    Pipelines/
-  ECommerce.Domain/        Domain model: aggregates, core types, domain exceptions, guards
-    Aggregates/
-    Core/
-    Exceptions/
-    GuardExtensions/
-  ECommerce.Infrastructure/ Persistence and infra services (EF Core DbContext, repositories, migrations)
-    DbContextConfigurations/
-    Persistence/
-    Repositories/
-    Services/
-    Migrations/
-  ECommerce.Shared/        Shared utilities (e.g., IdGenerator)
-test/
-  ECommerceApp.UnitTest/   Unit tests
-  Test.Shared/             Test helpers
-ECommerceApp.slnx          Solution file
-```
 
 How it fits together:
 - The Api project references Application, Domain and Infrastructure. Controllers call into application-level services (use-cases) which operate on domain entities and coordinate persistence via repositories implemented in Infrastructure. EF Core migrations live in Infrastructure and map Domain models to the database.
@@ -108,10 +82,6 @@ dotnet test
 - Keep changes limited to a single concern per PR.
 - Update or add migrations in `src/ECommerce.Infrastructure/Migrations` and include migration commands in PR description if schema changes are required.
 
-## TODO / Ideas
-- Add integration tests for API endpoints
-- Add CI workflow to run build/tests and apply style checks
-- Seed data and sample HTTP collection (e.g., Postman / .http file is present: `src/ECommerce.Api/ECommerce.Api.http`)
 
 ## License
 Specify a license (e.g., MIT) — add a LICENSE file to the repo.
