@@ -1,5 +1,6 @@
 ﻿using ECommerce.Domain.Aggregates.Customer.ValueObjects;
 using ECommerce.Domain.Aggregates.Order;
+using ECommerce.Domain.Aggregates.Order.Enumeration;
 using ECommerce.Domain.Aggregates.Order.ValueObjects;
 using ECommerce.Domain.Aggregates.Product.ValueObjects;
 using ECommerce.Domain.Core;

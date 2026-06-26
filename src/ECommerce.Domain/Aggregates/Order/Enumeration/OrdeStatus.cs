@@ -1,8 +1,6 @@
-﻿using ECommerce.Domain.Core;
+﻿namespace ECommerce.Domain.Aggregates.Order.Enumeration;
 
-namespace ECommerce.Domain.Aggregates.Order;
-
-public class OrderStatus:Enumeration
+public class OrderStatus:Core.Enumeration
 {
     public static OrderStatus Created = new(1, nameof(Created));
     public static OrderStatus WaitingForPayment = new(2, nameof(WaitingForPayment));

@@ -6,4 +6,8 @@
     <Project Path="src/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" />
     <Project Path="src/ECommerce.Shared/ECommerce.Shared.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/ECommerceApp.UnitTest/ECommerceApp.UnitTest.csproj" />
+    <Project Path="test/Test.Shared/Test.Shared.csproj" />
+  </Folder>
 </Solution>

@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using ECommerce.Domain.Aggregates.Customer.ValueObjects;
 using ECommerce.Domain.Aggregates.Order.DomainEvents;
+using ECommerce.Domain.Aggregates.Order.Enumeration;
 using ECommerce.Domain.Aggregates.Order.ValueObjects;
 using ECommerce.Domain.Core;
 using ECommerce.Domain.Exceptions;
