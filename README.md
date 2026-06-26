@@ -83,8 +83,5 @@ dotnet test
 - Update or add migrations in `src/ECommerce.Infrastructure/Migrations` and include migration commands in PR description if schema changes are required.
 
 
-## License
-Specify a license (e.g., MIT) — add a LICENSE file to the repo.
-
 ## Contact
 Repo owner: Behtash Shirzad (BehtashShirzad)
