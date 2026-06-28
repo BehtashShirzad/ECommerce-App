@@ -12,7 +12,7 @@ public class GetCategoriesQueryHandler(ApplicationDbContext dbContext): IQueryHa
         var categories = await dbContext.Categories
             .AsNoTracking()
             .Where(_=>_.IsActive)
-            .Select(c=> new GetCategoryQueryResponse(c.Id,c.Name,c.Description??string.Empty))
+            .Select(c=> new GetCategoryQueryResponse(c.Id.Value,c.Name,c.Description??string.Empty))
             .ToListAsync(cancellationToken);
         return categories;
     }

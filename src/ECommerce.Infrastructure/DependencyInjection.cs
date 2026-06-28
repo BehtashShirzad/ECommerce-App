@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.Abstractions.Contracts;
 using ECommerce.Domain.Aggregates;
 using ECommerce.Domain.Aggregates.Category;
+using ECommerce.Domain.Aggregates.Product;
 using ECommerce.Infrastructure.Persistence;
 using ECommerce.Infrastructure.Repositories;
 using ECommerce.Infrastructure.Services;
@@ -15,10 +16,7 @@ public static class  DependencyInjection
     public static void AddInfrastructureServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
 
-       
-        serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
-        serviceCollection.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
-        
+        AddDbContexts(serviceCollection,configuration);
         serviceCollection
             .AddIdentityCore<AppUser>(options =>
             {
@@ -32,8 +30,23 @@ public static class  DependencyInjection
             
         serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
          
-        serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
+        AddRepositories(serviceCollection);
+        
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
+    }
+
+    static  void AddRepositories(IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
+        serviceCollection.AddScoped<IProductRepository, ProductRepository>();
+    }
+
+    static void AddDbContexts(IServiceCollection serviceCollection,IConfiguration configuration)
+    {
+          
+        serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
+        serviceCollection.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
+
     }
 }

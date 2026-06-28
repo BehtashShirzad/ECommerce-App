@@ -8,9 +8,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers;
-[ApiController]
-[Route("[controller]")]
-public class CategoryController(ISender sender) : Controller
+
+public class CategoryController(ISender sender) : BaseApiController
 {
     private readonly ISender _sender = sender;
     [HttpPost]
@@ -30,7 +29,7 @@ public class CategoryController(ISender sender) : Controller
     
     
     
-    [HttpGet("/{categoryId:guid}")]
+    [HttpGet("{categoryId:guid}")]
     public async Task<ActionResult> GetCategoryAsync(Guid categoryId,CancellationToken cancellationToken = default)
     {
         var category = await _sender.Send(new GetCategoryQuery(new (categoryId)),cancellationToken);

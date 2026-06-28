@@ -25,8 +25,8 @@ public class ProductTests
             productName,
             price,
             des,
-            slug,
-            img);
+            slug
+            );
 
         // Assert
         product.Should().NotBeNull();
@@ -36,7 +36,7 @@ public class ProductTests
         product.Price.Should().Be(price);
         product.Description.Should().Be(des);
         product.Slug.Should().Be(slug);
-        product.ImageUrl.Should().Be(img);
+        
     }
 
     [Fact]
@@ -48,8 +48,7 @@ public class ProductTests
             _fixture.Name,
             _fixture.Price,
             _fixture.Description,
-            _fixture.Slug,
-            _fixture.ImageUrl);
+            _fixture.Slug);
 
         // Assert
         action.Should().Throw<DomainException>();
@@ -66,8 +65,7 @@ public class ProductTests
             name!,
             _fixture.Price,
             _fixture.Description,
-            _fixture.Slug,
-            _fixture.ImageUrl);
+            _fixture.Slug);
 
         // Assert
         action.Should().Throw<DomainException>();
@@ -84,28 +82,13 @@ public class ProductTests
             _fixture.Name,
             price,
             _fixture.Description,
-            _fixture.Slug,
-            _fixture.ImageUrl);
+            _fixture.Slug);
 
         // Assert
         action.Should().Throw<DomainException>();
     }
 
-    [Fact]
-    public void Create_Should_Allow_Null_ImageUrl()
-    {
-        // Act
-        var product = Product.Create(
-            _fixture.CategoryId,
-            _fixture.Name,
-            _fixture.Price,
-            _fixture.Description,
-            _fixture.Slug,
-            null);
 
-        // Assert
-        product.ImageUrl.Should().BeNull();
-    }
 
     [Fact]
     public void Create_Should_Generate_Unique_Id()
@@ -116,16 +99,14 @@ public class ProductTests
             _fixture.Name,
             _fixture.Price,
             _fixture.Description,
-            _fixture.Slug,
-            _fixture.ImageUrl);
+            _fixture.Slug);
 
         var second = Product.Create(
             _fixture.CategoryId,
             _fixture.Name,
             _fixture.Price,
             _fixture.Description,
-            _fixture.Slug,
-            _fixture.ImageUrl);
+            _fixture.Slug);
 
         // Assert
         first.Id.Value.Should().NotBe(second.Id.Value);

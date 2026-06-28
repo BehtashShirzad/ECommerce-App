@@ -12,7 +12,7 @@ public class GetCategoryQueryHandler(ApplicationDbContext dbContext):IQueryHandl
         var category = await dbContext.Categories
             .AsNoTracking()
             .Where(c => c.Id == request.CategoryId && c.IsActive)
-            .Select(c => new GetCategoryQueryResponse(c.Id, c.Name, c.Description ?? string.Empty))
+            .Select(c => new GetCategoryQueryResponse(c.Id.Value, c.Name, c.Description ?? string.Empty))
             .FirstOrDefaultAsync(cancellationToken);
             
         return category;

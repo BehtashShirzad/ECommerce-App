@@ -25,9 +25,5 @@ public class CategoryRepository(ApplicationDbContext context):ICategoryRepositor
     {
         return await _context.Categories.FindAsync(id);
     }
-
-    public void UpdateCategory(Category category)
-    {
-          _context.Categories.Update(category);
-    }
+ 
 }
