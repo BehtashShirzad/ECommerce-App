@@ -29,7 +29,7 @@ public class  UpdateCategoryCommandHandler(IProductRepository productRepository,
         categoryId = null;
     }
     
-    var product =await productRepository.GetProductAsync(new (request.ProductId));
+    var product =await productRepository.GetAsync(new (request.ProductId),cancellationToken);
     if (product == null)
         throw   new Exception("Product not found");
     

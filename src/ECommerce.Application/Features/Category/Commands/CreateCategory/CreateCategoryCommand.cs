@@ -13,7 +13,7 @@ public class CreateCategoryCommandHandler(ICategoryRepository categoryRepository
     {
         var category = Domain.Aggregates.Category.Category
             .Create(request.Name,request.Description,request.IsActive);
-        await  categoryRepository.AddCategoryAsync(category, cancellationToken);
+        await  categoryRepository.AddAsync(category, cancellationToken);
         return new (category.Id.Value);
     }
 }

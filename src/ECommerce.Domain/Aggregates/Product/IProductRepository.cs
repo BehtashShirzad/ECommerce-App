@@ -1,10 +1,9 @@
 ﻿using ECommerce.Domain.Aggregates.Product.ValueObjects;
+using ECommerce.Domain.Core;
 
 namespace ECommerce.Domain.Aggregates.Product;
 
-public interface IProductRepository
+public interface IProductRepository:IRepository<Product,ProductId>
 {
-    public Task AddProductAsync(Product product,CancellationToken cancellationToken);
-    public void DeleteProductAsync(Product product);
-    public Task<Product?> GetProductAsync(ProductId id);
+     
 }

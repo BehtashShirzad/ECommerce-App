@@ -1,10 +1,12 @@
 ﻿using ECommerce.Application.Abstractions.Contracts;
 using ECommerce.Domain.Aggregates;
 using ECommerce.Domain.Aggregates.Category;
+using ECommerce.Domain.Aggregates.Customer;
 using ECommerce.Domain.Aggregates.Product;
 using ECommerce.Infrastructure.Persistence;
 using ECommerce.Infrastructure.Repositories;
 using ECommerce.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,20 +20,22 @@ public static class  DependencyInjection
 
         AddDbContexts(serviceCollection,configuration);
         serviceCollection
-            .AddIdentityCore<AppUser>(options =>
+            .AddIdentity<AppUser,IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
-            .AddEntityFrameworkStores<AppIdentityDbContext>();
+            .AddRoles<IdentityRole<Guid>>() 
+            .AddSignInManager()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
         
             
         serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
          
         AddRepositories(serviceCollection);
-        
+        serviceCollection.AddScoped<IUserManagerService, UserManagerService>();
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
     }
@@ -40,13 +44,14 @@ public static class  DependencyInjection
     {
         serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
         serviceCollection.AddScoped<IProductRepository, ProductRepository>();
+        serviceCollection.AddScoped<ICustomerRepository, CustomerRepository>();
     }
 
     static void AddDbContexts(IServiceCollection serviceCollection,IConfiguration configuration)
     {
           
         serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
-        serviceCollection.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")) );
+       
 
     }
 }

@@ -17,7 +17,7 @@ public class CreateProductCommandHandler (IProductRepository productRepository )
             request.Price, request?.Description??string.Empty, slug
              );
         
-        await productRepository.AddProductAsync(product,cancellationToken);
+        await productRepository.AddAsync(product,cancellationToken);
         return new  (product.Id.Value);
     }
 }

@@ -1,15 +1,19 @@
 ﻿using ECommerce.Application.Abstractions.Contracts;
+using ECommerce.Domain.Aggregates;
 using ECommerce.Domain.Aggregates.Category;
 using ECommerce.Domain.Aggregates.Customer;
 using ECommerce.Domain.Aggregates.Order;
 using ECommerce.Domain.Aggregates.Product;
 using ECommerce.Domain.Core;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Infrastructure.Persistence;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICurrentUser currentUser,IPublisher bus) : DbContext(opt)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICurrentUser currentUser,IPublisher bus) :
+    IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>(opt)
 {
     readonly ICurrentUser  _currentUser=currentUser;
     readonly IPublisher  _domainEventBus=bus;
@@ -18,6 +22,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICu
         base.OnModelCreating(modelBuilder);
         var assembly = InfrastructureLayerAssembly.Assembly;
         modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+        modelBuilder.Entity<AppUser>().ToTable("Users");
+        modelBuilder.Entity<IdentityRole<Guid>>().ToTable("Roles");
+        modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles");
+        modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
+        modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
+        modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
+        modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
