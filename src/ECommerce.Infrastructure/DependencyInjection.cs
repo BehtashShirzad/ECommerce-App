@@ -33,11 +33,15 @@ public static class  DependencyInjection
         
             
         serviceCollection.AddScoped<ICurrentUser, CurrentUser>();
-         
+        serviceCollection.Configure<JwtOptions>(configuration.GetSection("Jwt"));
         AddRepositories(serviceCollection);
         serviceCollection.AddScoped<IUserManagerService, UserManagerService>();
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
+        serviceCollection.AddScoped<IIdentityService, IdentityService>();
+        serviceCollection.AddScoped<ITokenService, TokenService>();
+        serviceCollection.AddScoped<IPasswordService, PasswordService>();
+        serviceCollection.AddScoped<IRoleService, RoleService>();
     }
 
     static  void AddRepositories(IServiceCollection serviceCollection)

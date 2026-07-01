@@ -5,6 +5,7 @@ using ECommerce.Domain.Aggregates.Customer;
 using ECommerce.Domain.Aggregates.Order;
 using ECommerce.Domain.Aggregates.Product;
 using ECommerce.Domain.Core;
+using ECommerce.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,7 +18,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICu
 {
     readonly ICurrentUser  _currentUser=currentUser;
     readonly IPublisher  _domainEventBus=bus;
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override async void OnModelCreating(ModelBuilder modelBuilder)
     {   
         base.OnModelCreating(modelBuilder);
         var assembly = InfrastructureLayerAssembly.Assembly;
@@ -29,7 +30,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICu
         modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
         modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
         modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
+     
     }
+    
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var userId =Guid.TryParse( _currentUser.UserId,out Guid currentUserId )? currentUserId  : Guid.Empty;
@@ -75,5 +78,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt,ICu
     public DbSet<Order> Orders=>Set<Order>();
     public DbSet<Category> Categories=>Set<Category>();
     public DbSet<Product> Products=>Set<Product>();
+
+   
     
 }

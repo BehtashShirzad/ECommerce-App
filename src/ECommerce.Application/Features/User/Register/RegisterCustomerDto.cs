@@ -1,9 +1,7 @@
 ﻿using ECommerce.Application.Abstractions.Contracts;
-using ECommerce.Domain.Aggregates;
 using ECommerce.Domain.Aggregates.Customer;
-using Microsoft.AspNetCore.Identity;
 
-namespace ECommerce.Application.Features.Customer;
+namespace ECommerce.Application.Features.User.Register;
 
 public record RegisterCustomerCommand(string FirstName,string LastName,string Username,string PhoneNumber,string Password,string? Email=null):ITransactionalCommand<RegisterCustomerCommandResponse>;
 public record RegisterCustomerCommandResponse();
