@@ -3,6 +3,7 @@ using ECommerce.Application.Abstractions.Contracts.Services.Identity;
 using ECommerce.Application.Abstractions.Contracts.Services.Security;
 using ECommerce.Application.Abstractions.Contracts.Transaction;
 using ECommerce.Domain.Aggregates;
+using ECommerce.Domain.Aggregates.Cart;
 using ECommerce.Domain.Aggregates.Category;
 using ECommerce.Domain.Aggregates.Customer;
 using ECommerce.Domain.Aggregates.Product;
@@ -49,6 +50,8 @@ public static class  DependencyInjection
         serviceCollection.AddScoped<IPasswordService, PasswordService>();
         serviceCollection.AddScoped<IRoleService, RoleService>();
         serviceCollection.AddScoped<IJwtService, JwtService>();
+        serviceCollection.AddSingleton<ICartRepository, CartRepository>();
+        serviceCollection.AddHybridCache();
     }
 
     static  void AddRepositories(IServiceCollection serviceCollection)
